@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server"
 import { NextResponse } from "next/server"
-
+export const dynamic = "force-dynamic";
 export async function GET(request: Request) {
   try {
     const supabase = createClient()
@@ -51,7 +51,7 @@ export async function PUT(request: Request) {
         name: name || session.user.user_metadata.full_name || session.user.email!.split("@")[0],
         avatar_url: avatar_url || session.user.user_metadata.avatar_url,
       })
-      .eq("id", session.user.id)
+      .eq("id", session.user.id as any)
       .select()
       .single()
 

@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server"
 import { NextResponse } from "next/server"
-
+export const dynamic = "force-dynamic";
 export async function GET(request: Request) {
   try {
     const requestUrl = new URL(request.url)
@@ -55,6 +55,6 @@ export async function GET(request: Request) {
     return NextResponse.redirect(new URL("/chat", requestUrl.origin))
   } catch (error) {
     console.error("Auth callback error:", error)
-    return NextResponse.redirect(new URL("/login?error=unknown", requestUrl.origin))
+    return NextResponse.redirect(new URL("/login?error=unknown", JSON.stringify(error)))
   }
 }
